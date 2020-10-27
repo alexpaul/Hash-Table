@@ -12,7 +12,7 @@ The hash function is our use case in our implementation of a Hash Table calculat
 
 Collision occurs when more than one element uses the same index. In our example we will be resolving collisions by using `chaining`.
 
-![hash table sketch]((https://user-images.githubusercontent.com/1819208/97247042-320b3400-17d5-11eb-8d64-a4306ad4806c.jpg)
+![hash table sketch](https://user-images.githubusercontent.com/1819208/97247042-320b3400-17d5-11eb-8d64-a4306ad4806c.jpg)
 
 ## Hash Table Implementation 
 
