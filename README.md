@@ -6,7 +6,7 @@ Hash Table implementation in Swift.
 
 ## Hash function 
 
-The hash function is our use case in our implementation of a Hash Table calculates a hash value that will be used to determine which index the to store the `key, value` pair.   
+The hash function calculates a hash value that will be used to determine which index in the `buckets` array to store the `key, value` pair.   
 
 ## Collision
 
