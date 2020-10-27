@@ -4,6 +4,14 @@ Hash Table implementation in Swift.
 
 > A dictionary is a type of hash table, providing fast access to the entries it contains. Each entry in the table is identified using its key, which is a hashable type such as a string or number. You use that key to retrieve the corresponding value, which can be any object. In other languages, similar data types are known as hashes or associated arrays.
 
+## Hash function 
+
+The hash function is our use case in our implementation of a Hash Table calculates a hash value that will be used to determine which index the to store the `key, value` pair.   
+
+## Collision
+
+Collision occurs when more than one element uses the same index. In our example we will be resolving collisions by using `chaining`.
+
 ## Hash Table Implementation 
 
 ```swift 
@@ -105,3 +113,7 @@ dict["Tim Cook"] // Apple CEO
 dict.count // 3
 
 ```
+
+## Resources 
+
+1. [Wikipedia - Hash Table](https://en.wikipedia.org/wiki/Hash_table)
