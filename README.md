@@ -8,6 +8,12 @@ Hash Table implementation in Swift.
 
 The hash function calculates a hash value that will be used to determine which index in the `buckets` array to store the `key, value` pair.   
 
+```swift 
+var buckets = Array(repeating: [], count: 5)
+let index = abs("alex".hashValue % buckets.count)
+print(index) // index 4 - this index will vary as a new hash value is calculated every time
+```
+
 ## Collision
 
 Collision occurs when more than one element uses the same index. In our example we will be resolving collisions by using `chaining`.
