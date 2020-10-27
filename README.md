@@ -125,3 +125,4 @@ dict.count // 3
 ## Resources 
 
 1. [Wikipedia - Hash Table](https://en.wikipedia.org/wiki/Hash_table)
+1. [Swift Algorithm Club - Hash Table](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Hash%20Table)
