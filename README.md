@@ -16,7 +16,7 @@ print(index) // index 4 - this index will vary as a new hash value is calculated
 
 ## Collision
 
-Collision occurs when more than one element uses the same index. In our example we will be resolving collisions by using `chaining`.
+Collision occurs when more than one element uses the same index. In our example we will be resolving collisions by using `separate chaining`.
 
 ![hash table sketch](https://user-images.githubusercontent.com/1819208/97247042-320b3400-17d5-11eb-8d64-a4306ad4806c.jpg)
 
