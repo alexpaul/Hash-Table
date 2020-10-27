@@ -24,12 +24,9 @@ Collision occurs when more than one element uses the same index. In our example 
 
 ```swift 
 struct HashTable<Key: Hashable, Value> {
-  
-  // data structures
   private typealias Element = (key: Key, value: Value)
   private typealias Bucket = [Element]
   private var buckets: [Bucket]
-  
   private (set) public var count = 0
   
   init(capacity: Int) {
@@ -39,6 +36,21 @@ struct HashTable<Key: Hashable, Value> {
   
   private func index(for key: Key) -> Int {
     return abs(key.hashValue % buckets.count)
+  }
+  
+  public mutating func update(value: Value, for key: Key) -> Value? {
+    let index = self.index(for: key)
+    for (i, element) in buckets[index].enumerated() {
+      if element.key == key {
+        let oldValue = element.value
+        buckets[index][i].value = value
+        return oldValue
+      }
+    }
+    let element = Element(key, value)
+    buckets[index].append(element)
+    count += 1
+    return nil
   }
   
   public func value(for key: Key) -> Value? {
@@ -51,38 +63,20 @@ struct HashTable<Key: Hashable, Value> {
     return nil
   }
   
-  public mutating func update(value: Value, for key: Key) -> Value? {
-    let index = self.index(for: key)
-        
-    for (i, element) in buckets[index].enumerated() {
-      if element.key == key {
-        let oldValue = element.value
-        buckets[index][i].value = value
-        return oldValue
-      }
-    }
-    
-    buckets[index].append((key: key, value: value))
-    
-    count += 1
-    
-    return nil
-  }
-  
   public mutating func removeValue(for key: Key) -> Value? {
     let index = self.index(for: key)
-    
     for (i, element) in buckets[index].enumerated() {
       if element.key == key {
         let removedValue = element.value
         buckets[index].remove(at: i)
+        count -= 1
         return removedValue
       }
     }
     return nil
   }
   
-  subscript(key: Key) -> Value? {
+  subscript(_ key: Key) -> Value? {
     set {
       if let value = newValue {
         update(value: value, for: key)
@@ -93,33 +87,25 @@ struct HashTable<Key: Hashable, Value> {
       return value(for: key)
     }
   }
-  
 }
 
-var dict = HashTable<String, String>(capacity: 10)
+var jobSearch = HashTable<String, String>(capacity: 10)
+jobSearch.update(value: "Applied", for: "Apple") // nil
+jobSearch["Google"] = "Rejected" // Rejected
+jobSearch["Zoc Doc"] = "Need to Apply"
+jobSearch["Bloomberg"] = "Applied"
+jobSearch["Fox"] = "Interview"
+jobSearch.count // 2
+print(jobSearch)
+// HashTable<String, String>(buckets: [[], [(key: "Google", value: "Rejected")], [], [(key: "Zoc Doc", value: "Need to Apply")], [], [], [], [(key: "Apple", value: "Applied"), (key: "Fox", value: "Interview")], [], [(key: "Bloomberg", value: "Applied")]], count: 5)
 
-dict.update(value: "iOS Developer", for: "Alex Paul") // nil
-
-dict.count // 1
-
-dict.update(value: "Full Stack Dev", for: "Alex Paul") // iOS Developer
-
-dict.value(for: "Alex Paul") // Full Stack Dev
-
-dict.removeValue(for: "Alex Paul") // Full Stack Dev
-
-dict.value(for: "Alex Paul") // nil
-
-dict["Tim Cook"] = "Apple CEO" // Apple CEO
-
-dict.update(value: "Reggae Legend", for: "Bob Marley") // nil
-
-dict["Bob Marley"] // Reggae Legend
-
-dict["Tim Cook"] // Apple CEO
-
-dict.count // 3
-
+jobSearch.update(value: "Offer", for: "Apple")
+print(jobSearch)
+// HashTable<String, String>(buckets: [[], [(key: "Google", value: "Rejected")], [], [(key: "Zoc Doc", value: "Need to Apply")], [], [], [], [(key: "Apple", value: "Offer"), (key: "Fox", value: "Interview")], [], [(key: "Bloomberg", value: "Applied")]], count: 5)
+jobSearch["Fox"] = nil
+jobSearch.removeValue(for: "Fox")
+print(jobSearch)
+// HashTable<String, String>(buckets: [[], [(key: "Google", value: "Rejected")], [], [(key: "Zoc Doc", value: "Need to Apply")], [], [], [], [(key: "Apple", value: "Offer")], [], [(key: "Bloomberg", value: "Applied")]], count: 5)
 ```
 
 ## Resources 
